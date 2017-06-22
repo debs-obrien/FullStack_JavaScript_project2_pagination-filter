@@ -2,12 +2,10 @@
  * Created by debbieobrien on 21/06/2017.
  */
 var $studentList = $('.student-list');
-var $studentItem = $('.student-item');
-const list = $studentItem; //set list equal to student list
-const studentAmount = $studentItem.length; //total amount of students
+const list = $('.student-item');
+const studentAmount = list.length; //total amount of students
 const numberToShow = 10; //changing this number will modify the amount to show for all functions
 const pageCalc = Math.ceil(studentAmount/numberToShow);//calculate the amount of pages needed brought upwards so 5.4 becomes 6
-let pageNum = 1;
 let activePage = 1; //page you are on. starts at 1 changes with pagination
 
       console.log('num students ' + studentAmount)//shows the number of students
@@ -17,7 +15,7 @@ let activePage = 1; //page you are on. starts at 1 changes with pagination
 
 //calculate the amount of pages needed
 function showPage(){
-  let pageStart = 1 * activePage * numberToShow - numberToShow; //start with 1 if on page 1
+  let pageStart = activePage * numberToShow - numberToShow; //start with 1 if on page 1
         console.log('page start ' + pageStart);
   let pageEnd = pageStart + numberToShow -1; //keeps it dynamic
         console.log('page end ' + pageEnd);
@@ -55,11 +53,13 @@ function appendPageLinks(list){
   showPage();
 
 //calculate what page depending on what number is clicked and recall function
-     pageNum = $('.pagination').on('click', function(event){
+  $('.pagination').on('click', function(event){
        activePage = event.target.innerHTML;
        console.log('the page number is ' + activePage);
        showPage();
+       //$('.pagination li a').remove();
     })
+
 }
 //call function to add links
 appendPageLinks();
