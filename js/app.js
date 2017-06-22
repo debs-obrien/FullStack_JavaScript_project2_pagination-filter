@@ -11,8 +11,6 @@ let activePage = 1; //page you are on. starts at 1 changes with pagination
       console.log('num students ' + studentAmount)//shows the number of students
       console.log('pages ' + pageCalc); //shows the amount of pages
 
-
-
 //calculate the amount of pages needed
 function showPage(){
   let pageStart = activePage * numberToShow - numberToShow; //start with 1 if on page 1
@@ -53,13 +51,15 @@ function appendPageLinks(list){
   showPage();
 
 //calculate what page depending on what number is clicked and recall function
-  $('.pagination').on('click', function(event){
-       activePage = event.target.innerHTML;
+  var clicked = $('.pagination li a');
+  clicked.on('click', function(){
+      activePage = clicked.index(this)+1; //need to add 1 as index starts at 0
+      clicked.removeClass();
+      $(this).addClass('active');
        console.log('the page number is ' + activePage);
        showPage();
        //$('.pagination li a').remove();
     })
-
 }
 //call function to add links
 appendPageLinks();
