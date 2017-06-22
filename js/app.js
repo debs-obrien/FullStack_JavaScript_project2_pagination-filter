@@ -11,6 +11,12 @@ let activePage = 1; //page you are on. starts at 1 changes with pagination
       console.log('num students ' + studentAmount)//shows the number of students
       console.log('pages ' + pageCalc); //shows the amount of pages
 
+const hideList = () => {
+  for(let i = 0; i < studentAmount; i++){
+    list[i].style.display='none';
+  }
+}
+
 //calculate the amount of pages needed
 const showPage = () => {
   let pageStart = activePage * numberToShow - numberToShow; //start with 1 if on page 1
@@ -18,9 +24,7 @@ const showPage = () => {
   let pageEnd = pageStart + numberToShow -1; //keeps it dynamic
         console.log('page end ' + pageEnd);
   //hide all
-    for(let i = 0; i < studentAmount; i++){
-      list[i].style.display='none';
-    }
+    hideList();
     //find and display amount of students depending on page start and page end
     //if page is not a full page then we need to recalcualte the end of the page
     if(pageEnd > studentAmount){
@@ -66,3 +70,35 @@ const paginationLink = $('.pagination li a');
 }
 //call function to add links
 appendPageLinks(list);
+
+const addFilter = () => {
+  let filterHTML = '<div class="student-search">';
+    filterHTML += '<input placeholder="Search for students...">';
+    filterHTML += '<button>Search</button>';
+    filterHTML += '</div>';
+  $('.page-header H2').after(filterHTML);
+}
+
+const filterNames = () => {
+  addFilter();  //constructs the filter input and button
+
+  $('.student-search button').click(function(){
+    var value = $('input').val();  //get value of input
+    console.log('input ' + value);
+    hideList();
+    $('.pagination').hide();
+
+    for(let i = 0; i < studentAmount; i++){
+      var filter = $('.email:contains(value)');
+
+      if(filter === value){
+        console.log('ok');
+      }else{
+        console.log('no match')
+      }
+    }
+
+  })
+
+}
+filterNames();
