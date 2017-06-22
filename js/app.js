@@ -1,7 +1,7 @@
 /**
  * Created by debbieobrien on 21/06/2017.
  */
-var $studentList = $('.student-list');
+const $studentList = $('.student-list');
 const list = $('.student-item');
 const studentAmount = list.length; //total amount of students
 const numberToShow = 10; //changing this number will modify the amount to show for all functions
@@ -12,7 +12,7 @@ let activePage = 1; //page you are on. starts at 1 changes with pagination
       console.log('pages ' + pageCalc); //shows the amount of pages
 
 //calculate the amount of pages needed
-function showPage(){
+const showPage = () => {
   let pageStart = activePage * numberToShow - numberToShow; //start with 1 if on page 1
         console.log('page start ' + pageStart);
   let pageEnd = pageStart + numberToShow -1; //keeps it dynamic
@@ -32,12 +32,13 @@ function showPage(){
     }
 }
 
-function appendPageLinks(list){
+const appendPageLinks = list => {
 //create the pagination
   let paginationHTML = '<div class="pagination">';
   paginationHTML += '<ul>';
   for(i = 1; i <= pageCalc; i++){
-      paginationHTML += '<li><a href="#">';
+      paginationHTML += '<li>';
+      paginationHTML += '<a href="#">';
       paginationHTML += i;
       paginationHTML += '</a>';
       paginationHTML += '</li>';
@@ -50,16 +51,18 @@ function appendPageLinks(list){
 //call function to show page
   showPage();
 
+//add active class to page 1
+  $('.pagination li a:first').addClass('active');
+
 //calculate what page depending on what number is clicked and recall function
-  var clicked = $('.pagination li a');
-  clicked.on('click', function(){
-      activePage = clicked.index(this)+1; //need to add 1 as index starts at 0
-      clicked.removeClass();
-      $(this).addClass('active');
+const paginationLink = $('.pagination li a');
+  paginationLink.click(function(){
+       activePage = paginationLink.index(this)+1; //need to add 1 as index starts at 0
+       paginationLink.removeClass(); //remove all prior classes
+       $(this).addClass('active'); //add active class to one clicked
        console.log('the page number is ' + activePage);
        showPage();
-       //$('.pagination li a').remove();
     })
 }
 //call function to add links
-appendPageLinks();
+appendPageLinks(list);
