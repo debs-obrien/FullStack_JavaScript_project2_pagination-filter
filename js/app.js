@@ -31,15 +31,12 @@ const showPage = () => {
 }
 
 const createPagination = () => {
-  //create the pagination
   $('.student-list').append('<div class="pagination"></div>');
   $('.pagination').append('<ul></ul>');
     for(i = 1; i <= pageCalc; i++){
         $('.pagination ul').append('<li><a href="#">' + i + '</a></li>');
       }
-
-  //add pagination to the end of the list
-}
+  }
 
 const appendPageLinks = list2 => {
   showPage();//call function to show page
@@ -61,11 +58,9 @@ const paginationLink = $('.pagination li a');
 appendPageLinks(list);
 
 const createFilter = () => {
-  let filterHTML = '<div class="student-search">';
-    filterHTML += '<input placeholder="Search for students...">';
-    filterHTML += '<button>Search</button>';
-    filterHTML += '</div>';
-  $('.page-header H2').after(filterHTML);
+  $('.page-header H2').after('<div class="student-search"></div>');
+  $('.student-search').append('<input placeholder="Search for students...">');
+  $('.student-search').append('<button>Search</button>');
 }
 
 const filterNames = () => {
