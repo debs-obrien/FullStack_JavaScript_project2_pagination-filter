@@ -1,22 +1,21 @@
 /**
  * Created by debbieobrien on 21/06/2017.
  */
-const $studentList = $('.student-list');
 const list = $('.student-item');
 const studentAmount = list.length; //total amount of students
 const numberToShow = 10; //changing this number will modify the amount to show for all functions
 const pageCalc = Math.ceil(studentAmount/numberToShow);//calculate the amount of pages needed brought upwards so 5.4 becomes 6
 let activePage = 1; //page you are on. starts at 1 changes with pagination
 
-      console.log('num students ' + studentAmount)//shows the number of students
-      console.log('pages ' + pageCalc); //shows the amount of pages
+      //console.log('num students ' + studentAmount)//shows the number of students
+      //console.log('pages ' + pageCalc); //shows the amount of pages
 
 //calculate the amount of pages needed
 const showPage = () => {
     let pageStart = activePage * numberToShow - numberToShow; //start with 1 if on page 1
-        console.log('page start ' + pageStart);
+        //console.log('page start ' + pageStart);
     let pageEnd = pageStart + numberToShow -1; //keeps it dynamic
-        console.log('page end ' + pageEnd);
+        //console.log('page end ' + pageEnd);
   //hide all
     list.hide();
 
@@ -27,28 +26,22 @@ const showPage = () => {
     }
     for(let i = pageStart; i <= pageEnd; i++){
       list[i].style.display='block';
-        console.log('student ' + i);
+        //console.log('student ' + i);
     }
 }
 
 const createPagination = () => {
   //create the pagination
-    let paginationHTML = '<div class="pagination">';
-    paginationHTML += '<ul>';
+  $('.student-list').append('<div class="pagination"></div>');
+  $('.pagination').append('<ul></ul>');
     for(i = 1; i <= pageCalc; i++){
-        paginationHTML += '<li>';
-        paginationHTML += '<a href="#">';
-        paginationHTML += i;
-        paginationHTML += '</a>';
-        paginationHTML += '</li>';
+        $('.pagination ul').append('<li><a href="#">' + i + '</a></li>');
       }
-    paginationHTML += '</ul>';
-    paginationHTML += '</div>';
+
   //add pagination to the end of the list
-    $('.student-list').append(paginationHTML);
 }
 
-const appendPageLinks = list => {
+const appendPageLinks = list2 => {
   showPage();//call function to show page
   createPagination();//call function to create Pagination
 
@@ -79,25 +72,25 @@ const filterNames = () => {
   createFilter();  //constructs the filter input and button
 
   $('.student-search  button').click(function(){
-    var value = $('input').val();  //get value of input
-    console.log('input ' + value);
+
+    let value = $('input').val();  //get value of input
+        console.log('input ' + value);
     list.hide(); //hide list
     $('.pagination').hide();  //hide pagination
 
-    var filterEmail = []; //create empty array to store email value
-    for(let i = 0; i < studentAmount; i++){
-      var email = $('.email');
-      filterEmail.push( email[ i ].innerHTML ); //add emails to new array
-    }
-    var result = list.find("email:contains(" + value + ")");
-    console.log('result' + result);
-    console.log(filterEmail);
-      if(true){
-        console.log('match');
-      }else{
-        console.log('no match')
-      }
+    let filterEmail = []; //create empty array to store email value
+    let email = '';
+    //var result = list.find("email:contains(" + value + ")");
 
+      list.each(function() {
+        email = $(this).children('.student-details').children('.email').text();
+        if ((email.indexOf(value)) > -1) {
+                filterEmail.push($(this));
+
+                console.log(filterEmail);
+            }
+      })
+        appendPageLinks(filterEmail);
 
   })
 
