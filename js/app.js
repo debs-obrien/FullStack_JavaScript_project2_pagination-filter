@@ -106,9 +106,13 @@ const filterNames = (myList) => {
     activePage = 1;
     studentAmount = filteredList.length;
     pageCalc = Math.ceil(studentAmount / numberToShow);
-
-    showPage(filteredList);//call function to show page
-    appendPageLinks(filteredList);
+    $('.student-list p').remove();
+    if(studentAmount !== 0){
+      showPage(filteredList);//call function to show page
+      appendPageLinks(filteredList);
+    }else{
+      $('.student-list').append('<p>sorry no student’s found - try again</p>');
+    }
   }
 
   $input.keyup(search); //works while typing
