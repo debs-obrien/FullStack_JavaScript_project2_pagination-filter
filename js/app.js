@@ -1,5 +1,5 @@
 /**
- * Created by debbieobrien on 21/06/2017.
+ * Created by debbieobrien on 21/06/2017. FullStack Javascript Project 2 Pagination
  */
 const numberToShow = 10; //changing this number will modify the amount to show for all functions
 
@@ -107,8 +107,9 @@ const filterNames = (myList) => {
     studentAmount = filteredList.length;
     pageCalc = Math.ceil(studentAmount / numberToShow);
     $('.student-list p').remove();
+
     if(studentAmount !== 0){
-      showPage(filteredList);//call function to show page
+      showPage(filteredList); //call function to show page
       appendPageLinks(filteredList);
     }else{
       $('.student-list').append('<p>sorry no student’s found - try again</p>');
