@@ -48,9 +48,8 @@ const appendPageLinks = (listToAppend) => {
 const $paginationLink = $('.pagination li a');
   $paginationLink.click(function(){
        activePage = $paginationLink.index(this)+1; //need to add 1 as index starts at 0
-       if($paginationLink.hasClass('active')){
-         $paginationLink.removeClass('active'); //remove active class
-       }
+       
+       $paginationLink.removeClass('active');
        $(this).addClass('active'); //add active class to one clicked
             console.log('the page number is ' + activePage);
        showPage(listToAppend);
