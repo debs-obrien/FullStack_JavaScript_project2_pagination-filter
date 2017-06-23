@@ -5,13 +5,13 @@ const $studentList = $('.student-item');
 const studentAmount = $studentList.length; //total amount of students
 const numberToShow = 10; //changing this number will modify the amount to show for all functions
 const pageCalc = Math.ceil(studentAmount/numberToShow);//calculate the amount of pages needed brought upwards so 5.4 becomes 6
+let activePage = 1; //page you are on. starts at 1 changes with pagination
 
       //console.log('num students ' + studentAmount)//shows the number of students
       //console.log('pages ' + pageCalc); //shows the amount of pages
 
 /** Function to calculate the amount of pages needed  */
 const showPage = (myList) => {
-    let activePage = 1; //page you are on. starts at 1 changes with pagination
     let pageStart = activePage * numberToShow - numberToShow; //start with 1 if on page 1
         //console.log('page start ' + pageStart);
     let pageEnd = pageStart + numberToShow -1; //keeps it dynamic
