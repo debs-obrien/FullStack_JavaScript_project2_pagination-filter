@@ -5,14 +5,13 @@ const $studentList = $('.student-item');
 const studentAmount = $studentList.length; //total amount of students
 const numberToShow = 10; //changing this number will modify the amount to show for all functions
 const pageCalc = Math.ceil(studentAmount/numberToShow);//calculate the amount of pages needed brought upwards so 5.4 becomes 6
-let activePage = 1; //page you are on. starts at 1 changes with pagination
 
       //console.log('num students ' + studentAmount)//shows the number of students
       //console.log('pages ' + pageCalc); //shows the amount of pages
 
-
 /** Function to calculate the amount of pages needed  */
 const showPage = (myList) => {
+    let activePage = 1; //page you are on. starts at 1 changes with pagination
     let pageStart = activePage * numberToShow - numberToShow; //start with 1 if on page 1
         //console.log('page start ' + pageStart);
     let pageEnd = pageStart + numberToShow -1; //keeps it dynamic
@@ -40,7 +39,7 @@ const createPagination = () => {
   }
 /** Function to append pagination Links to page  */
 const appendPageLinks = (listToAppend) => {
-  showPage(listToAppend);//call function to show page
+
   createPagination();//call function to create Pagination
 
   $('.pagination li a:first').addClass('active'); //add active class to page 1
@@ -76,7 +75,9 @@ const filterNames = (myList) => {
     myList.hide(); //hide list
     $('.pagination').hide();  //hide pagination
 
-    let $filteredList = $([]); //create empty array to store email value
+     //create empty array to store email value
+    $filteredList = [];
+    //$filteredList = $.makeArray($filteredList);
     let name = $('.student-details').children('h3').text();
     let email = $('.student-details').children('.email').text();
     let nameEmail = name + ' ' + email
@@ -85,14 +86,16 @@ const filterNames = (myList) => {
       myList.each(function() {
         if (nameEmail.indexOf(nameEmail) > -1) {
                 $filteredList.push($(this));
-                console.log('the filter is ' + $filteredList);
             }
+            console.log('the filter is ' + $filteredList);
       })
-        appendPageLinks($filteredList);
+      showPage($filteredList);//call function to show page
+      appendPageLinks($filteredList);
 
   })
 
 }
 //call function to add links and filter
+showPage($studentList);//call function to show page
 appendPageLinks($studentList);
 filterNames($studentList);
