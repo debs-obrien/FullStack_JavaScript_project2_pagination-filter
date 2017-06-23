@@ -1,8 +1,8 @@
 /**
  * Created by debbieobrien on 21/06/2017.
  */
-const studentList = $('.student-item');
-const studentAmount = studentList.length; //total amount of students
+const $studentList = $('.student-item');
+const studentAmount = $studentList.length; //total amount of students
 const numberToShow = 10; //changing this number will modify the amount to show for all functions
 const pageCalc = Math.ceil(studentAmount/numberToShow);//calculate the amount of pages needed brought upwards so 5.4 becomes 6
 let activePage = 1; //page you are on. starts at 1 changes with pagination
@@ -46,10 +46,12 @@ const appendPageLinks = (listToAppend) => {
   $('.pagination li a:first').addClass('active'); //add active class to page 1
 
 /** Function to calculate what page depending on what number is clicked and recall function  */
-const paginationLink = $('.pagination li a');
-  paginationLink.click(function(){
-       activePage = paginationLink.index(this)+1; //need to add 1 as index starts at 0
-       paginationLink.removeClass(); //remove all prior classes
+const $paginationLink = $('.pagination li a');
+  $paginationLink.click(function(){
+       activePage = $paginationLink.index(this)+1; //need to add 1 as index starts at 0
+       if($paginationLink.hasClass('active')){
+         $paginationLink.removeClass('active'); //remove active class
+       }
        $(this).addClass('active'); //add active class to one clicked
             console.log('the page number is ' + activePage);
        showPage(listToAppend);
@@ -74,7 +76,7 @@ const filterNames = (myList) => {
     myList.hide(); //hide list
     $('.pagination').hide();  //hide pagination
 
-    let filteredList = $([]); //create empty array to store email value
+    let $filteredList = $([]); //create empty array to store email value
     let name = $('.student-details').children('h3').text();
     let email = $('.student-details').children('.email').text();
     let nameEmail = name + ' ' + email
@@ -82,15 +84,15 @@ const filterNames = (myList) => {
 
       myList.each(function() {
         if (nameEmail.indexOf(nameEmail) > -1) {
-                filteredList.push($(this));
-                console.log('the filter is ' + filteredList);
+                $filteredList.push($(this));
+                console.log('the filter is ' + $filteredList);
             }
       })
-        appendPageLinks(filteredList);
+        appendPageLinks($filteredList);
 
   })
 
 }
 //call function to add links and filter
-appendPageLinks(studentList);
-filterNames(studentList);
+appendPageLinks($studentList);
+filterNames($studentList);
