@@ -1,7 +1,7 @@
 /**
  * Created by debbieobrien on 21/06/2017.
  */
- const numberToShow = 10; //changing this number will modify the amount to show for all functions
+const numberToShow = 10; //changing this number will modify the amount to show for all functions
 
 let $studentList = [];
 $('.student-item').each(function(){
@@ -17,8 +17,6 @@ const hideAll = (myList) => {
     $(element).hide();
   })
 }
-
-
 /**
 Function to calculate the amount of pages needed
 */
@@ -47,13 +45,14 @@ const createPagination = () => {
         $('.pagination ul').append('<li><a href="#">' + i + '</a></li>');
       }
   }
+
 /**
 Function to append pagination Links to page
 */
 const appendPageLinks = (listToAppend) => {
-
-  createPagination();//call function to create Pagination
-
+  if(pageCalc > 1){
+    createPagination(); //call function to create Pagination if more than one page
+  }
   $('.pagination li a:first').addClass('active'); //add active class to page 1
 
 /**
@@ -84,15 +83,15 @@ Function to Filter for Names searched for
 const filterNames = (myList) => {
   createFilter();  //constructs the filter input and button
 
-  $('.student-search  button').click(function(){
+  $input = $('.student-search  input');
+  $button = $('.student-search  button');
 
+  const search = () => {
     let value = $('input').val();  //get value of input
     hideAll(myList); //hide list
     $('.pagination').remove();  //remove pagination
 
-     //create empty array to store email value
-    filteredList = [];
-    //$filteredList = $.makeArray($filteredList);
+    filteredList = []; //create empty array to store email value
 
     myList.forEach(function(element){
       let name = $(element).find('.student-details').children('h3').text();
@@ -110,9 +109,10 @@ const filterNames = (myList) => {
 
     showPage(filteredList);//call function to show page
     appendPageLinks(filteredList);
+  }
 
-  });
-
+  $input.keyup(search); //works while typing
+  $button.click(search); //click is there too but really could be taken out as keyup is better
 }
 //call function to add links and filter
 showPage($studentList);//call function to show page
